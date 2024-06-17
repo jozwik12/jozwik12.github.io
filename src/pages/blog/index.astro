@@ -54,6 +54,14 @@ const posts = (await getCollection('blog')).sort(
 			ul li a:hover .date {
 				color: rgb(var(--accent));
 			}
+      .description {
+        display: flex;
+        justify-content: center;
+      }
+      .description p {
+        width: 460px;
+        text-align: justify;
+      }
 			@media (max-width: 720px) {
 				ul {
 					gap: 0.5em;
@@ -68,6 +76,11 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
+      <section class="description">
+        <p>
+          This blog is a place where I put my semi-coherent rants at whatever thing I find interesting at the time
+        </p>
+      </section>
 			<section>
 				<ul>
 					{

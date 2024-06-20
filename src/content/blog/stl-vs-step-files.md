@@ -1,6 +1,25 @@
 ---
 title: 'Why on earth are we still using STL files?'
-pubDate: 'Jul 01 2022'
+pubDate: '05.20.2024'
 ---
 
-Describe why using STLs is so outdated and STEP files are superior in context of 3d printing
+STEP files have a couple of advantages when compared to STLs:
+- **they contain unit information**  
+STL files are just a mesh of points. Mesh freely flowing in space, unconstrained by units or common sense. Is the 3Dbenchy you imported 30mm or 30m long? You can usually deduce it from context, but you shouldn't have to. Within metric world that's usually not that big of an issue - most of the times when I import STL to Fusion360 I just need to scale down the mesh by a factor of 10 to get realistic dimensions. But what if author of the file was using imperial system? If you leave something to interpretation it's a potential source of error.
+- **their precision doesn't depend on mesh setting of the author**  
+STLs are discreet models. This argument is best explained using an example - a hole or a peg. Either way, a circle. STEP files can easily model such geometry accurately, because they were designed to do so. But STLs have to approximate the circle with line segments, turning circles into hexagons. The precision on default export settings is usually sufficient for most 3D printing applications. But what if the author is not using default settings. 
+- **they are easily modified**  
+Authors of the project often modify it to account for their printers' characteristics. That's especially visible when printing holes. For example, let's say that you want to create a hole for M5 bolt. You don't want to make the hole too small - the bolt won't fit or it will fit but will be very hard to turn (or will just thread into the material of the hole itself, not the nut). You don't want to make it too big as well - it will jitter. Theoretically, 5mm hole would be perfect (bolts are a bit undersized to allow threading into the nut), but reality is often different. You need to offset the diameter by .1, .2, .3mm. How much? It depends on quite a few variables (slicer resolution, flow ratio, filament type and even brand and so on). The thing is, they're unique to your setup and almost never transferable to other users. 5.1mm hole on your printer may turn out to be 5.2mm wide, but on other printer it may be 4.9mm. If you're printing someone's STL file you may be dead set on these dimensions. Modifications are possible - you can either use special program for STLs modification or reverse-engineer the whole model. Problem is first solution can be a pain to work with and second one is time consuming. And with STEP files that's easy - just import it and offset the dimension by however much you desire.
+- **they can be universally transfered between any CAD software of your choice**  
+While Fusion360 seems to be the most popular CAD software in 3D printing niche, alternatives, like
+FreeCAD or OnShape are getting more popular each day. Add on more industry-focused programs
+like SolidWorks, NX, or Catia and you get an explosive mix. Each of these programs has a preferred format that is tailored to the specific program/environment. Good luck trying to import .3mf file (Fusion format) to SolidWorks or NX. But STEP files provide a bridge
+
+Of course, STEP files are [not perfect](https://en.wikipedia.org/wiki/ISO_10303-21#Criticism). But they are perfect for their purpose - a universal link between modern CAD softwares. An adjustable wrench is never going to perform as well as a dedicated wrench. But they were never supposed to. They were mean to be (as the name suggests) adjustable, or universal.
+
+I've heard of an argument, that many people don't share their program-specific files because they're scared of judgement. If you share such file, you're sharing entire progress of your work along the way, so you might think that there's always going to be an internet stranger that's going to smear down your design you worked so hard to create. I don't agree with such way of thinking for 2 reasons. First, we all make questionable design decisions. There are no perfect designs, only the working ones. And secondly, STEP files do not save design history, so no one will see the design decisions you're scared to share.
+
+Some time ago you could argue that this debate is pointless, because in context of 3D
+printing those files were used in 2 use cases that were not overlapping. STEP files were used to exchange info between CAD programs (or users), but if you wanted to print your creation, you just *HAD* to make an STL file - it was the only type of file accepted by slicers. The thing is, that's not the case anymore - majority of the most popular slicers are able to import STEP files. And they are able to capitalize on the precision it brings.
+
+So, all in all, there seem to be fewer and fewer reasons to use STLs. And from what I can observe, on  3D printing design sharing websites, like Printables or Thingiverse, more and more users are providing STEP files along the STLs. That's something I consider a definite step in the right direction. And I sincerely hope that we continue on this path.
